@@ -1,36 +1,10 @@
-import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import express from "express";
+import { currentUser } from "@osorg/common-middleware";
 
-// Defines what the payload object will be comprised of
-interface UserPayload {
-  id: string;
-  email: string;
-}
+const router = express.Router();
 
-// Adds currentUser to Express Request namespace
-declare global {
-  namespace Express {
-    interface Request {
-      currentUser?: UserPayload;
-    }
-  }
-}
+router.get("/api/users/currentuser", currentUser, (req, res) => {
+  res.send({ currentUser: req.currentUser || null });
+});
 
-export const currentUser = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  if (!req.session?.jwt) {
-    return next();
-  }
-
-  try {
-    const payload = jwt.verify(
-      req.session.jwt,
-      process.env.JWT_KEY!
-    ) as UserPayload;
-    req.currentUser = payload;
-  } catch (err) {}
-  next();
-};
+export { router as currentUserRouter };
