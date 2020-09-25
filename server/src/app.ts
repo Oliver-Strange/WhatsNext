@@ -9,7 +9,8 @@ import cookieSession from "cookie-session";
 // import { signinRouter } from "./routes/signin";
 // import { signoutRouter } from "./routes/signout";
 
-import { errorHandler, NotFoundError } from "@osorg/common-middleware";
+import { errorHandler } from "./middleware/error-handler";
+import { NotFoundError } from "./middleware/errors/not-found-error";
 
 const app = express();
 app.use(json());
