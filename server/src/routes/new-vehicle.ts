@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 
 import { Vehicle } from "../models/vehicle";
-import { validateRequest } from "./../middleware/validate-request";
+import { validateRequest } from "../middleware";
 
 const router = express.Router();
 

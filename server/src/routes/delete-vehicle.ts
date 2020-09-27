@@ -1,31 +1,34 @@
 import express, { Request, Response } from "express";
-import { requireAuth } from "./../middleware/require-auth";
-import { NotFoundError } from "./../middleware/errors/not-found-error";
-import { NotAuthorizedError } from "./../middleware/errors/not-authorized-error";
+import {
+  requireAuth,
+  currentUser,
+  NotFoundError,
+  NotAuthorizedError,
+} from "../middleware";
 import { Vehicle } from "../models/vehicle";
 
 const router = express.Router();
 
 router.delete(
   "/api/vehicle/:vehicleId",
+  currentUser,
   requireAuth,
   async (req: Request, res: Response) => {
     const { vehicleId } = req.params;
-    console.log(vehicleId);
 
     const vehicle = await Vehicle.findById(vehicleId);
 
-    // if (!vehicle) {
-    //   throw new NotFoundError();
-    // }
+    if (!vehicle) {
+      throw new NotFoundError();
+    }
 
-    // if (vehicle.userId !== req.currentUser!.id) {
-    //   throw new NotAuthorizedError();
-    // }
+    if (vehicle.userId !== req.currentUser!.id) {
+      throw new NotAuthorizedError();
+    }
 
-    // Vehicle.deleteOne({ id: vehicleId });
+    await Vehicle.findByIdAndDelete(vehicleId);
 
-    res.status(204).send(vehicle);
+    res.status(200).send(vehicle);
   }
 );
 

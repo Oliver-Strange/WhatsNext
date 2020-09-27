@@ -1,11 +1,12 @@
 import express, { Request, Response } from "express";
 import { Vehicle } from "../models/vehicle";
-import { requireAuth } from "./../middleware/require-auth";
+import { requireAuth, currentUser } from "./../middleware";
 
 const router = express.Router();
 
 router.get(
   "/api/myVehicles",
+  currentUser,
   requireAuth,
   async (req: Request, res: Response) => {
     const vehicles = await Vehicle.find({
