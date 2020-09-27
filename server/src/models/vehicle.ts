@@ -2,8 +2,10 @@ import mongoose from "mongoose";
 
 // new vehicle properties interface
 interface VehicleAttrs {
+  userId: string;
+  nickname: string;
   make: string;
-  model: string;
+  modelType: string;
   miles: number;
   picLink: string;
   lastOil: Date;
@@ -11,8 +13,10 @@ interface VehicleAttrs {
 
 // new vehicle document properties interface
 interface VehicleDoc extends mongoose.Document {
+  userId: string;
+  nickname: string;
   make: string;
-  model: string;
+  modelType: string;
   miles: number;
   picLink: string;
   lastOil: Date;
@@ -25,17 +29,26 @@ interface VehicleModel extends mongoose.Model<VehicleDoc> {
 
 const vehicleSchema = new mongoose.Schema(
   {
+    userId: {
+      type: String,
+      required: true,
+    },
+    nickname: {
+      type: String,
+      required: false,
+    },
     make: {
       type: String,
       required: true,
     },
-    model: {
+    modelType: {
       type: String,
       required: true,
     },
     miles: {
       type: Number,
       required: true,
+      min: 0,
     },
     picLink: {
       type: String,
