@@ -1,7 +1,13 @@
-import '../styles/globals.css'
+import buildClient from "./api/build-client";
+import Header from "../components/Header";
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
-}
+import "../styles/globals.css";
 
-export default MyApp
+export default ({ Component, pageProps }) => {
+  return (
+    <div>
+      <Header />
+      <Component {...pageProps} />
+    </div>
+  );
+};
