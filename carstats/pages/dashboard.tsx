@@ -25,10 +25,14 @@ const Dashboard = ({ vehicles }) => {
   );
 };
 
-Dashboard.getInitialProps = async (ctx) => {
-  const response = await axios.get("http://localhost:4000/api/myVehicles");
-  const json = await response.data;
-  return { vehicles: json };
+Dashboard.getInitialProps = async () => {
+  const {
+    data,
+  } = await axios.get("http://localhost:4000/api/users/currentuser", {
+    withCredentials: true,
+  });
+
+  return { vehicles: data };
 };
 
 export default Dashboard;

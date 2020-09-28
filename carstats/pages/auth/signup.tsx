@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Router from "next/router";
 import axios from "axios";
-import useStateWithLocalStorage from "./../../hooks/useStateWithLocalStorage";
 
 const signup = () => {
   const [email, setEmail] = useState("");
