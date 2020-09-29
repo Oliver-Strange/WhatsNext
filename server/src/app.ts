@@ -16,8 +16,11 @@ import { NotFoundError } from "./middleware/errors/not-found-error";
 import { deleteVehicleRouter } from "./routes/delete-vehicle";
 import { vehicleIndexRouter } from "./routes/user-vehicles";
 
+const cors = require("cors");
+
 const app = express();
 app.use(json());
+app.use(cors());
 app.use(
   cookieSession({
     signed: false,
