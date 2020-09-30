@@ -18,9 +18,9 @@ const signin = () => {
           password,
         }
       );
-      localStorage.setItem("userId", response.data.userId);
-      localStorage.setItem("jwt", response.data.jwt);
-      Router.push("/dashboard");
+      // localStorage.setItem("userId", response.data.userId);
+      // localStorage.setItem("jwt", response.data.jwt);
+      Router.push("/");
     } catch (error) {
       setErrors(error.response.data.errors);
     }

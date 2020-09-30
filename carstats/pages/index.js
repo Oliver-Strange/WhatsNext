@@ -1,4 +1,5 @@
 import styles from "../styles/Home.module.css";
+import buildClient from "./api/build-client";
 
 export default function Home() {
   return (
@@ -23,3 +24,9 @@ export default function Home() {
     </div>
   );
 }
+
+Home.getInitialProps = async (context) => {
+  const { data } = await buildClient(context).get("/api/users/currentuser");
+
+  return data;
+};

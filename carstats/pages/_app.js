@@ -3,11 +3,36 @@ import Header from "../components/Header";
 
 import "../styles/globals.css";
 
-export default ({ Component, pageProps }) => {
+const AppComponent = ({ Component, pageProps, currentUser }) => {
   return (
     <div>
-      <Header />
-      <Component {...pageProps} />
+      <Header currentUser={currentUser} />
+      <div className="container">
+        <Component currentUser={currentUser} {...pageProps} />
+      </div>
     </div>
   );
 };
+// nextjs passes each page to this app file as the component, allowing the global css to work
+
+AppComponent.getInitialProps = async (appContext) => {
+  const client = buildClient(appContext.ctx);
+  const { data } = await client.get("/api/users/currentuser");
+
+  let pageProps = {};
+  // git initial props for landing page
+  if (appContext.Component.getInitialProps) {
+    pageProps = await appContext.Component.getInitialProps(
+      appContext.ctx,
+      client,
+      data.currentUser
+    );
+  }
+
+  return {
+    pageProps,
+    ...data,
+  };
+};
+
+export default AppComponent;

@@ -1,15 +1,11 @@
-import { useEffect } from "react";
 import Router from "next/router";
+import axios from "axios";
 
-export default () => {
-  const { doRequest } = useRequest({
-    url: "/api/users/signout",
-    method: "post",
-    body: {},
-    onSuccess: () => Router.push("/"),
-  });
-
-  useEffect(() => {
-    doRequest();
-  }, []);
+export default async () => {
+  try {
+    await axios.post("http://localhost:4000/api/users/sigout");
+    Router.push("/");
+  } catch (error) {
+    console.log(error);
+  }
 };
