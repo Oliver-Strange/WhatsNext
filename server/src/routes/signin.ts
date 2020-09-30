@@ -52,7 +52,10 @@ router.post(
       jwt: userJwt,
     };
 
-    res.status(200).send(existingUser);
+    res.status(200).send({
+      userId: existingUser.id,
+      jwt: req.session!.jwt,
+    });
   }
 );
 
