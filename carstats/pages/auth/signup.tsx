@@ -18,8 +18,8 @@ const signup = () => {
           password,
         }
       );
-      localStorage.setItem("userId", response.data.id);
-      Router.push("/dashboard");
+      // localStorage.setItem("userId", response.data.id);
+      Router.push("/");
     } catch (error) {
       setErrors(error.response.data.errors);
     }

@@ -16,11 +16,11 @@ const signin = () => {
         {
           email,
           password,
-          userId: localStorage.getItem("userId"),
         }
       );
-      localStorage.setItem("userId", response.data.id);
-      Router.push("/dashboard");
+      // localStorage.setItem("userId", response.data.userId);
+      // localStorage.setItem("jwt", response.data.jwt);
+      Router.push("/");
     } catch (error) {
       setErrors(error.response.data.errors);
     }

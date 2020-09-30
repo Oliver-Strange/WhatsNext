@@ -1,7 +1,8 @@
 import Link from "next/link";
-import axios from "axios";
+import buildClient from "./api/build-client";
 
-const Dashboard = ({ vehicles }) => {
+const Dashboard = ({ currentUser, vehicles }) => {
+  console.log(currentUser, vehicles);
   const vehicleList = vehicles.map((vehicle) => {
     return (
       <div key={vehicle.id}>
@@ -20,17 +21,12 @@ const Dashboard = ({ vehicles }) => {
   return (
     <div>
       <h1>Vehicles</h1>
-      {vehicleList}
     </div>
   );
 };
 
-Dashboard.getInitialProps = async () => {
-  const {
-    data,
-  } = await axios.get("http://localhost:4000/api/users/currentuser", {
-    withCredentials: true,
-  });
+Dashboard.getInitialProps = async (context, client, currentUser) => {
+  const { data } = await client.get("/api/myVehicles");
 
   return { vehicles: data };
 };
